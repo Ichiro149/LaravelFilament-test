@@ -5,10 +5,10 @@
     <div class="max-w-md w-full space-y-8">
         <div>
             <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                {{ __('Two-Factor Authentication') }}
+                {{ __('profile.two_factor') }}
             </h2>
             <p class="mt-2 text-center text-sm text-gray-600">
-                {{ __('Enter the code from your authenticator app') }}
+                {{ __('profile.two_factor_enter_code') }}
             </p>
         </div>
 
@@ -16,7 +16,7 @@
             @csrf
 
             <div>
-                <label for="code" class="sr-only">{{ __('Authentication Code') }}</label>
+                <label for="code" class="sr-only">{{ __('profile.two_factor_verification_code') }}</label>
                 <input id="code" 
                        name="code" 
                        type="text" 
@@ -35,21 +35,21 @@
 
             <div>
                 <button type="submit" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors">
-                    {{ __('Verify') }}
+                    {{ __('auth.verify') }}
                 </button>
             </div>
         </form>
 
         <div class="text-center">
             <p class="text-sm text-gray-600">
-                {{ __('Lost your device?') }}
+                {{ __('profile.two_factor_lost_device') }}
                 <a href="#" onclick="document.getElementById('recovery-info').classList.toggle('hidden')" class="font-medium text-amber-600 hover:text-amber-500">
-                    {{ __('Use a recovery code') }}
+                    {{ __('auth.two_factor_use_recovery') }}
                 </a>
             </p>
             <div id="recovery-info" class="hidden mt-4 p-4 bg-gray-100 rounded-lg text-left">
                 <p class="text-sm text-gray-700">
-                    {{ __('Enter one of your recovery codes in the field above. Recovery codes are single-use.') }}
+                    {{ __('profile.two_factor_recovery_info') }}
                 </p>
             </div>
         </div>
@@ -58,7 +58,7 @@
             <form action="{{ route('logout') }}" method="POST" class="inline">
                 @csrf
                 <button type="submit" class="text-sm text-gray-500 hover:text-gray-700">
-                    {{ __('Sign out and try again') }}
+                    {{ __('profile.two_factor_signout_retry') }}
                 </button>
             </form>
         </div>

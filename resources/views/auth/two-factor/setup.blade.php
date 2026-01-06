@@ -5,10 +5,10 @@
     <div class="bg-white shadow rounded-lg">
         <div class="px-6 py-4 border-b border-gray-200">
             <h2 class="text-xl font-semibold text-gray-900">
-                {{ __('Setup Two-Factor Authentication') }}
+                {{ __('profile.two_factor_setup') }}
             </h2>
             <p class="mt-1 text-sm text-gray-600">
-                {{ __('Scan the QR code below with your authenticator app.') }}
+                {{ __('profile.two_factor_scan_qr') }}
             </p>
         </div>
 
@@ -31,16 +31,16 @@
 
                 {{-- Instructions --}}
                 <div class="flex-1">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('Instructions') }}</h3>
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">{{ __('profile.two_factor_instructions') }}</h3>
                     <ol class="list-decimal list-inside space-y-2 text-sm text-gray-600">
-                        <li>{{ __('Download an authenticator app like Google Authenticator or Authy.') }}</li>
-                        <li>{{ __('Scan the QR code with your app.') }}</li>
-                        <li>{{ __('Enter the 6-digit code from your app below.') }}</li>
+                        <li>{{ __('profile.two_factor_step1') }}</li>
+                        <li>{{ __('profile.two_factor_step2') }}</li>
+                        <li>{{ __('profile.two_factor_step3') }}</li>
                     </ol>
 
                     {{-- Manual Entry --}}
                     <div class="mt-6">
-                        <p class="text-sm text-gray-600 mb-2">{{ __("Can't scan? Enter this code manually:") }}</p>
+                        <p class="text-sm text-gray-600 mb-2">{{ __('profile.two_factor_manual_entry') }}</p>
                         <code class="block bg-gray-100 px-3 py-2 rounded text-sm font-mono break-all">{{ $secret }}</code>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="code" class="block text-sm font-medium text-gray-700">
-                            {{ __('Verification Code') }}
+                            {{ __('profile.two_factor_verification_code') }}
                         </label>
                         <input type="text" 
                                name="code" 
@@ -68,7 +68,7 @@
 
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700">
-                            {{ __('Confirm Password') }}
+                            {{ __('profile.confirm_password') }}
                         </label>
                         <input type="password" 
                                name="password" 
@@ -80,10 +80,10 @@
 
                 <div class="mt-6 flex items-center justify-between">
                     <a href="{{ route('two-factor.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
-                        {{ __('Cancel') }}
+                        {{ __('common.cancel') }}
                     </a>
                     <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
-                        {{ __('Enable Two-Factor Authentication') }}
+                        {{ __('profile.two_factor_verify') }}
                     </button>
                 </div>
             </form>

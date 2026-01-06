@@ -79,6 +79,18 @@ return [
     'two_factor_enabled_success' => 'Divfaktoru autentifikācija ir iespējota',
     'two_factor_disabled_success' => 'Divfaktoru autentifikācija ir atspējota',
     'two_factor_invalid_code' => 'Nederīgs verifikācijas kods',
+    'two_factor_disable_title' => 'Atspējot divfaktoru autentifikāciju',
+    'two_factor_confirm_regenerate' => 'Ģenerēt jaunus atkopšanas kodus',
+    'two_factor_instructions' => 'Lai iestatītu divfaktoru autentifikāciju, izpildiet šīs darbības:',
+    'two_factor_step1' => 'Lejupielādējiet autentifikatora lietotni (Google Authenticator, Authy, 1Password)',
+    'two_factor_step2' => 'Skenējiet QR kodu ar lietotni vai ievadiet slepeno atslēgu manuāli',
+    'two_factor_step3' => 'Ievadiet 6 ciparu kodu no lietotnes, lai apstiprinātu iestatīšanu',
+    'two_factor_manual_entry' => 'Manuāla ievade',
+    'two_factor_verification_code' => 'Verifikācijas kods',
+    'two_factor_lost_device' => 'Zaudējāt piekļuvi ierīcei?',
+    'two_factor_recovery_info' => 'Ja nevarat piekļūt savai autentifikatora lietotnei, varat izmantot vienu no atkopšanas kodiem.',
+    'two_factor_signout_retry' => 'Izrakstīties un mēģināt vēlreiz',
+    'back_to_profile' => 'Atpakaļ uz profilu',
 
     // Google OAuth
     'google_connected' => 'Google konts ir pievienots',

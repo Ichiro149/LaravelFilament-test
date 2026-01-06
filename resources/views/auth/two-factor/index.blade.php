@@ -5,10 +5,10 @@
     <div class="bg-white shadow rounded-lg">
         <div class="px-6 py-4 border-b border-gray-200">
             <h2 class="text-xl font-semibold text-gray-900">
-                {{ __('Two-Factor Authentication') }}
+                {{ __('profile.two_factor') }}
             </h2>
             <p class="mt-1 text-sm text-gray-600">
-                {{ __('Add additional security to your account using two-factor authentication.') }}
+                {{ __('profile.two_factor_add_security') }}
             </p>
         </div>
 
@@ -28,16 +28,16 @@
                         </svg>
                     </div>
                     <div class="ml-4">
-                        <h3 class="text-lg font-medium text-gray-900">{{ __('Enabled') }}</h3>
-                        <p class="text-sm text-gray-600">{{ __('Two-factor authentication is currently enabled.') }}</p>
+                        <h3 class="text-lg font-medium text-gray-900">{{ __('profile.two_factor_enabled') }}</h3>
+                        <p class="text-sm text-gray-600">{{ __('profile.two_factor_protected') }}</p>
                     </div>
                 </div>
 
                 {{-- Recovery Codes --}}
                 <div class="mb-6">
-                    <h4 class="text-md font-medium text-gray-900 mb-2">{{ __('Recovery Codes') }}</h4>
+                    <h4 class="text-md font-medium text-gray-900 mb-2">{{ __('profile.two_factor_recovery_codes') }}</h4>
                     <p class="text-sm text-gray-600 mb-4">
-                        {{ __('Store these recovery codes in a secure location. They can be used to recover access to your account if you lose your authenticator device.') }}
+                        {{ __('profile.two_factor_recovery_hint') }}
                     </p>
                     <div class="bg-gray-100 rounded-lg p-4 font-mono text-sm grid grid-cols-2 gap-2">
                         @foreach ($recoveryCodes as $code)
@@ -51,7 +51,7 @@
                     @csrf
                     <div class="mb-4">
                         <label for="regenerate_password" class="block text-sm font-medium text-gray-700">
-                            {{ __('Confirm Password to Regenerate Codes') }}
+                            {{ __('profile.two_factor_confirm_regenerate') }}
                         </label>
                         <input type="password" 
                                name="password" 
@@ -63,19 +63,19 @@
                         @enderror
                     </div>
                     <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
-                        {{ __('Regenerate Recovery Codes') }}
+                        {{ __('profile.two_factor_regenerate') }}
                     </button>
                 </form>
 
                 {{-- Disable 2FA --}}
                 <div class="border-t border-gray-200 pt-6">
-                    <h4 class="text-md font-medium text-red-600 mb-2">{{ __('Disable Two-Factor Authentication') }}</h4>
+                    <h4 class="text-md font-medium text-red-600 mb-2">{{ __('profile.two_factor_disable_title') }}</h4>
                     <form action="{{ route('two-factor.disable') }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <div class="mb-4">
                             <label for="disable_password" class="block text-sm font-medium text-gray-700">
-                                {{ __('Confirm Password') }}
+                                {{ __('profile.confirm_password') }}
                             </label>
                             <input type="password" 
                                    name="password" 
@@ -84,7 +84,7 @@
                                    required>
                         </div>
                         <button type="submit" class="inline-flex items-center px-4 py-2 border border-red-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                            {{ __('Disable 2FA') }}
+                            {{ __('profile.two_factor_disable') }}
                         </button>
                     </form>
                 </div>
@@ -98,13 +98,13 @@
                         </svg>
                     </div>
                     <div class="ml-4">
-                        <h3 class="text-lg font-medium text-gray-900">{{ __('Not Enabled') }}</h3>
-                        <p class="text-sm text-gray-600">{{ __('Two-factor authentication adds an extra layer of security to your account.') }}</p>
+                        <h3 class="text-lg font-medium text-gray-900">{{ __('profile.two_factor_disabled') }}</h3>
+                        <p class="text-sm text-gray-600">{{ __('profile.two_factor_add_security') }}</p>
                     </div>
                 </div>
 
                 <a href="{{ route('two-factor.setup') }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
-                    {{ __('Enable Two-Factor Authentication') }}
+                    {{ __('profile.two_factor_enable') }}
                 </a>
             @endif
         </div>
@@ -112,7 +112,7 @@
 
     <div class="mt-4">
         <a href="{{ route('profile.edit') }}" class="text-sm text-gray-600 hover:text-gray-900">
-            &larr; {{ __('Back to Profile') }}
+            &larr; {{ __('profile.back_to_profile') }}
         </a>
     </div>
 </div>
