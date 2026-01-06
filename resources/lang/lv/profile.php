@@ -48,8 +48,8 @@ return [
 
     // Delete account
     'delete_account' => 'Dzēst kontu',
-    'deleting_account' => 'Konta dzēšana',
-    'delete_account_confirm' => 'Ievadiet pašreizējo paroli, lai apstiprinātu dzēšanu (neobligāti)',
+    'danger_zone' => 'Konta dzēšana',
+    'password_hint' => 'Ievadiet pašreizējo paroli, lai apstiprinātu dzēšanu (neobligāti)',
 
     // Messages
     'profile_updated' => 'Profils veiksmīgi atjaunināts',
