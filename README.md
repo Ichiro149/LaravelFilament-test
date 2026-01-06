@@ -4,109 +4,199 @@
 
 ### Modern E-Commerce Platform
 
-[![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
-[![Filament](https://img.shields.io/badge/Filament-3.x-FDAE4B?style=for-the-badge&logo=laravel&logoColor=white)](https://filamentphp.com)
-[![Alpine.js](https://img.shields.io/badge/Alpine.js-3.x-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white)](https://alpinejs.dev)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![Filament](https://img.shields.io/badge/Filament-3.2-FDAE4B?style=for-the-badge&logo=laravel&logoColor=white)](https://filamentphp.com)
+[![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Tests](https://img.shields.io/badge/Tests-84%20passed-22C55E?style=for-the-badge&logo=phpunit&logoColor=white)](#-testing)
 
-*A full-featured e-commerce solution built with Laravel & Filament*
+[![Alpine.js](https://img.shields.io/badge/Alpine.js-3.x-8BC0D0?style=flat-square&logo=alpine.js&logoColor=white)](https://alpinejs.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Vite](https://img.shields.io/badge/Vite-7.x-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
+[![Livewire](https://img.shields.io/badge/Livewire-3.x-FB70A9?style=flat-square&logo=livewire&logoColor=white)](https://livewire.laravel.com)
+
+---
+
+**Full-stack e-commerce platform with admin panel, seller dashboard, and customer storefront**
 
 </div>
 
 ---
 
-## ✨ Features
+## 📋 Table of Contents
 
-<table>
-<tr>
-<td width="50%">
-
-### 🛍️ Storefront
-- **Product Catalog** with categories & filters
-- **Product Variants** (size, color, etc.)
-- **Wishlist** & product comparison
-- **Shopping Cart** with coupons
-- **Customer Reviews** & ratings
-- **Recently Viewed** products
-- **Dark/Light Theme** support
-
-</td>
-<td width="50%">
-
-### 🎛️ Admin Panel
-- **Filament Dashboard** for management
-- **Order Management** with status tracking
-- **Product Import** via Excel/CSV
-- **Customer Management**
-- **Coupon System**
-- **Analytics & Reports**
-- **Multi-seller Support**
-
-</td>
-</tr>
-</table>
-
-### 🔔 Additional Features
-
-| Feature | Description |
-|---------|-------------|
-| 📧 **Notifications** | Email & in-app notifications for orders and tickets |
-| 🎫 **Support Tickets** | Built-in customer support system |
-| 📦 **Order Tracking** | Real-time order status updates |
-| 💳 **Refund System** | Handle refund requests with status history |
-| 📊 **Activity Log** | Track user actions across the platform |
-| 🌐 **Multi-language** | i18n support with translation files |
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Installation](#-installation)
+- [Development](#-development)
+- [Project Structure](#-project-structure)
+- [Admin Panel](#-admin-panel)
+- [API Endpoints](#-api-endpoints)
+- [Testing](#-testing)
+- [Configuration](#-configuration)
 
 ---
 
-## 🚀 Quick Start
+## ✨ Features
+
+### 🛍️ Customer Storefront
+
+| Feature | Description |
+|---------|-------------|
+| **Product Catalog** | Browse products with filtering by categories, search, and sorting |
+| **Product Variants** | Support for product variations (size, color, etc.) with separate stock |
+| **Shopping Cart** | Add/remove items, update quantities, apply discount coupons |
+| **Wishlist** | Save products for later with easy add-to-cart |
+| **Product Comparison** | Compare multiple products side-by-side |
+| **Reviews & Ratings** | Submit product reviews with moderation system |
+| **Order Tracking** | Track order status by order number |
+| **Recently Viewed** | Quick access to previously viewed products |
+
+### 🎛️ Admin Panel (Filament)
+
+| Resource | Capabilities |
+|----------|--------------|
+| **Products** | CRUD, variants, images, categories, CSV import/export |
+| **Orders** | Status management, order history, status transitions |
+| **Customers** | User management, account details |
+| **Coupons** | Fixed/percentage discounts, validity periods, usage limits |
+| **Reviews** | Moderate customer reviews (approve/reject) |
+| **Tickets** | Customer support with real-time chat |
+| **Refunds** | Process refund requests with status history |
+| **Import Jobs** | Monitor bulk product imports with error tracking |
+
+### 👨‍💼 Seller Panel
+
+Separate dashboard for sellers to manage their own products with limited access.
+
+### 🔔 System Features
+
+| Feature | Description |
+|---------|-------------|
+| **Notifications** | In-app and email notifications for orders, tickets, status changes |
+| **Support Tickets** | Built-in ticketing system with attachments and replies |
+| **Activity Log** | Track user actions across the platform |
+| **Multi-language** | English, Russian, and Latvian (en, ru, lv) |
+| **PDF Invoices** | Generate downloadable invoices using DomPDF |
+| **Dark/Light Theme** | User preference for theme switching |
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **PHP** | 8.2+ | Runtime |
+| **Laravel** | 12.x | Framework |
+| **Filament** | 3.2 | Admin panel |
+| **Livewire** | 3.x | Reactive components |
+| **DomPDF** | 3.1 | PDF generation |
+
+### Frontend
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Alpine.js** | 3.x | JavaScript framework |
+| **Tailwind CSS** | 3.x | Utility-first CSS |
+| **Vite** | 7.x | Build tool with HMR |
+
+### Database
+
+- **MySQL** 8.0+ (recommended for production)
+- **SQLite** (supported for development/testing)
+- **PostgreSQL** 14+ (supported)
+
+---
+
+## 🚀 Installation
 
 ### Prerequisites
 
-- PHP 8.2+
+- PHP 8.2 or higher
 - Composer 2.x
-- Node.js 18+ & npm
-- MySQL 8.0+ / PostgreSQL 14+
+- Node.js 18+ with npm
+- MySQL 8.0+ / PostgreSQL 14+ / SQLite
 
-### Installation
+### Quick Setup
 
 ```bash
-# Clone the repository
-git clone https://github.com/Vlad8733/LaravelFilament-test.git
-cd Filament-test
+# Clone and enter directory
+git clone <repository-url>
+cd filament-test
 
-# Install PHP dependencies
+# Run automated setup
+composer setup
+```
+
+The `composer setup` script will:
+1. Install PHP dependencies
+2. Create `.env` file if missing
+3. Generate application key
+4. Run migrations
+5. Install Node.js dependencies
+6. Build frontend assets
+
+### Manual Installation
+
+```bash
+# Install dependencies
 composer install
-
-# Install Node.js dependencies
 npm install
 
-# Environment setup
+# Environment configuration
 cp .env.example .env
 php artisan key:generate
 
 # Database setup
 php artisan migrate --seed
 
-# Build assets
+# Build assets and create storage link
 npm run build
-
-# Create storage link
 php artisan storage:link
 
-# Start the development server
+# Start server
 php artisan serve
 ```
 
-### Development Mode
+---
+
+## 💻 Development
+
+### Start Development Server
+
+Use the composer dev script to run all services concurrently:
 
 ```bash
-# Run Vite dev server with HMR
+composer dev
+```
+
+This starts:
+- 🌐 **Laravel server** at `http://localhost:8000`
+- ⚡ **Vite** with hot module replacement
+- 📋 **Queue worker** for background jobs
+- 📝 **Pail** for real-time log tailing
+
+### Individual Services
+
+```bash
+# Laravel development server
+php artisan serve
+
+# Vite with HMR
 npm run dev
 
-# In another terminal
-php artisan serve
+# Queue worker (for imports, notifications)
+php artisan queue:work
+
+# Real-time logs
+php artisan pail
+```
+
+### Build for Production
+
+```bash
+npm run build
 ```
 
 ---
@@ -114,46 +204,178 @@ php artisan serve
 ## 📁 Project Structure
 
 ```
-├── app/
-│   ├── Filament/          # Admin panel resources
-│   │   ├── Resources/     # CRUD resources
-│   │   └── Seller/        # Seller panel
-│   ├── Http/
-│   │   ├── Controllers/   # Web controllers
-│   │   ├── Livewire/      # Livewire components
-│   │   └── Middleware/    # Custom middleware
-│   ├── Models/            # Eloquent models
-│   ├── Notifications/     # Email & app notifications
-│   ├── Observers/         # Model observers
-│   └── Policies/          # Authorization policies
-├── resources/
-│   ├── css/               # Stylesheets (modular)
-│   ├── js/                # JavaScript (Alpine components)
-│   ├── lang/              # Translation files
-│   └── views/             # Blade templates
-├── routes/
-│   └── web.php            # Web routes
-└── database/
-    ├── migrations/        # Database migrations
-    └── seeders/           # Data seeders
+app/
+├── Filament/
+│   ├── Resources/           # Admin CRUD resources
+│   │   ├── ProductResource  # Products management
+│   │   ├── OrderResource    # Orders management
+│   │   ├── CouponResource   # Discount coupons
+│   │   ├── UserResource     # Customer accounts
+│   │   ├── TicketResource   # Support tickets
+│   │   └── ...
+│   └── Seller/              # Seller panel
+│       └── Resources/       # Seller-specific resources
+├── Http/
+│   ├── Controllers/         # Web controllers
+│   │   ├── CartController   # Shopping cart operations
+│   │   ├── ProductController
+│   │   ├── WishlistController
+│   │   ├── TicketController
+│   │   └── ...
+│   ├── Livewire/            # Livewire components
+│   └── Middleware/          # Custom middleware
+├── Models/                  # Eloquent models (20+)
+│   ├── Product, ProductVariant, ProductImage
+│   ├── Order, OrderItem, OrderStatus
+│   ├── User, CartItem, WishlistItem
+│   ├── Coupon, Review, Ticket
+│   └── ...
+├── Notifications/           # Email & database notifications
+├── Observers/               # Model event observers
+├── Policies/                # Authorization policies
+└── Jobs/                    # Queue jobs (ImportProductsJob)
+
+database/
+├── factories/               # Model factories for testing
+│   ├── ProductFactory, CategoryFactory
+│   ├── OrderFactory, CouponFactory
+│   └── ...
+├── migrations/              # Database schema
+└── seeders/                 # Sample data
+
+resources/
+├── css/                     # Modular stylesheets
+├── js/                      # Alpine.js components
+├── lang/                    # Translations (en, ru, lv)
+│   ├── en/
+│   ├── ru/
+│   └── lv/
+└── views/                   # Blade templates
+
+tests/
+├── Feature/                 # Feature tests
+│   ├── AuthTest            # Authentication tests
+│   ├── CartTest            # Shopping cart tests
+│   ├── OrderTest           # Checkout & orders
+│   ├── ProductTest         # Product catalog
+│   ├── WishlistTest        # Wishlist functionality
+│   ├── CouponTest          # Discount codes
+│   └── ReviewTest          # Customer reviews
+└── Unit/                    # Unit tests
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## 🎛️ Admin Panel
 
-<div align="center">
+Access the admin panel at `/admin` after logging in with an admin account.
 
-| Backend | Frontend | Admin | Build |
-|:-------:|:--------:|:-----:|:-----:|
-| ![Laravel](https://img.shields.io/badge/-Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white) | ![Alpine.js](https://img.shields.io/badge/-Alpine.js-8BC0D0?style=flat-square&logo=alpine.js&logoColor=white) | ![Filament](https://img.shields.io/badge/-Filament-FDAE4B?style=flat-square&logo=laravel&logoColor=white) | ![Vite](https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white) |
-| ![PHP](https://img.shields.io/badge/-PHP%208.2-777BB4?style=flat-square&logo=php&logoColor=white) | ![Tailwind](https://img.shields.io/badge/-Tailwind-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white) | ![Livewire](https://img.shields.io/badge/-Livewire-FB70A9?style=flat-square&logo=livewire&logoColor=white) | ![npm](https://img.shields.io/badge/-npm-CB3837?style=flat-square&logo=npm&logoColor=white) |
+### Available Resources
 
-</div>
+| Resource | Features |
+|----------|----------|
+| **Products** | Create/edit products, manage variants, upload images, import/export CSV |
+| **Orders** | View order details, update status, view status history |
+| **Order Statuses** | Define custom order statuses |
+| **Users** | Manage customer accounts |
+| **Coupons** | Create discount codes (fixed/percentage), set validity, usage limits |
+| **Customer Reviews** | Approve/reject product reviews |
+| **Tickets** | Respond to support tickets, change status |
+| **Refund Requests** | Process customer refund requests |
+| **Import Jobs** | Monitor CSV imports, download failed rows |
 
 ---
 
-## 🔧 Configuration
+## 🔌 API Endpoints
+
+### Products
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/products` | Product listing |
+| GET | `/products/{slug}` | Product details |
+| GET | `/category/{slug}` | Products by category |
+| GET | `/search` | Global search |
+
+### Cart
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/cart` | View cart |
+| POST | `/cart/add/{productId}` | Add to cart |
+| PATCH | `/cart/update/{itemId}` | Update quantity |
+| DELETE | `/cart/remove/{itemId}` | Remove item |
+| GET | `/cart/count` | Get cart count |
+| POST | `/cart/coupon/apply` | Apply coupon |
+| DELETE | `/cart/coupon/remove` | Remove coupon |
+
+### Wishlist
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/wishlist` | View wishlist |
+| POST | `/wishlist/add/{productId}` | Add product |
+| DELETE | `/wishlist/remove/{productId}` | Remove product |
+| GET | `/wishlist/count` | Get count |
+
+### Orders
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/checkout` | Checkout page |
+| POST | `/checkout` | Place order |
+| GET | `/track-order` | Order tracking form |
+| POST | `/track-order` | Search by order number |
+| GET | `/track-order/{orderNumber}` | View order status |
+
+### Support
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/support` | List tickets |
+| POST | `/support` | Create ticket |
+| GET | `/support/{ticket}` | View ticket |
+| POST | `/support/{ticket}/reply` | Reply to ticket |
+
+---
+
+## 🧪 Testing
+
+The project includes a comprehensive test suite with **84 tests** covering all major features.
+
+### Run Tests
+
+```bash
+# Run all tests
+php artisan test
+
+# Run with verbose output
+php artisan test -v
+
+# Run specific test suite
+php artisan test --filter=CartTest
+php artisan test --filter=OrderTest
+
+# Using composer script
+composer test
+```
+
+### Test Coverage
+
+| Suite | Tests | Coverage |
+|-------|-------|----------|
+| AuthTest | 14 | Registration, login, logout, profile, password |
+| CartTest | 12 | Add, update, remove, stock validation |
+| OrderTest | 9 | Checkout, order placement, tracking |
+| ProductTest | 11 | Listing, details, slug generation |
+| WishlistTest | 9 | Add, remove, user isolation |
+| CouponTest | 14 | Validation, calculation, apply/remove |
+| ReviewTest | 7 | Submit, moderation, queries |
+| Import Tests | 6 | Bulk import, failures, variants |
+
+---
+
+## ⚙️ Configuration
 
 ### Environment Variables
 
@@ -162,49 +384,53 @@ php artisan serve
 APP_NAME=ShopLy
 APP_ENV=local
 APP_DEBUG=true
+APP_URL=http://localhost:8000
 
 # Database
 DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
 DB_DATABASE=shoply
 DB_USERNAME=root
 DB_PASSWORD=
 
-# Mail (for notifications)
+# Queue (required for imports & notifications)
+QUEUE_CONNECTION=database
+
+# Mail
 MAIL_MAILER=smtp
 MAIL_HOST=mailpit
 MAIL_PORT=1025
+MAIL_FROM_ADDRESS="shop@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
 
-# Queue (for background jobs)
-QUEUE_CONNECTION=database
+# Session & Cache
+SESSION_DRIVER=database
+CACHE_STORE=database
 ```
 
-### Queue Worker
+### Queue Configuration
 
-For processing background jobs (product imports, notifications):
+Background jobs are used for:
+- Bulk product imports
+- Email notifications
+- Order status notifications
 
 ```bash
+# Start queue worker
 php artisan queue:work
+
+# Or use the dev script which includes queue
+composer dev
 ```
 
----
+### Language Configuration
 
-## 📸 Screenshots
+Supported languages: **English** (en), **Russian** (ru), **Latvian** (lv)
 
-<div align="center">
-<i>Screenshots coming soon...</i>
-</div>
-
----
-
-## 🧪 Testing
-
-```bash
-# Run all tests
-php artisan test
-
-# Run with coverage
-php artisan test --coverage
-```
+Change language via:
+- URL: `/language/{locale}` (en, ru, lv)
+- Session-based preference
 
 ---
 
@@ -216,5 +442,11 @@ This project is open-sourced software licensed under the [MIT license](https://o
 
 <div align="center">
 
-**Built with ❤️ using Laravel & Filament**
+### Built with
+
+[![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![Filament](https://img.shields.io/badge/Filament-FDAE4B?style=for-the-badge&logo=laravel&logoColor=white)](https://filamentphp.com)
+[![Alpine.js](https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white)](https://alpinejs.dev)
+[![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+
 </div>
