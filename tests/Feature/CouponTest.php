@@ -112,7 +112,9 @@ class CouponTest extends TestCase
 
     public function test_user_can_apply_valid_coupon(): void
     {
-        $coupon = Coupon::factory()->percent(10)->create();
+        $coupon = Coupon::factory()->percent(10)->create([
+            'minimum_amount' => null, // Ensure no minimum amount requirement
+        ]);
 
         CartItem::create([
             'user_id' => $this->user->id,
