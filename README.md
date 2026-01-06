@@ -217,7 +217,4 @@ This project is open-sourced software licensed under the [MIT license](https://o
 <div align="center">
 
 **Built with ❤️ using Laravel & Filament**
-
-[Documentation](https://laravel.com/docs) · [Report Bug](https://github.com/your-username/shoply/issues) · [Request Feature](https://github.com/your-username/shoply/issues)
-
 </div>
