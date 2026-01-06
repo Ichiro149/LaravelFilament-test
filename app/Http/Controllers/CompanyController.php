@@ -15,7 +15,7 @@ class CompanyController extends Controller
     {
         $query = Company::query()
             ->where('is_active', true)
-            ->withCount(['products' => fn($q) => $q->where('is_active', true)])
+            ->withCount(['products' => fn ($q) => $q->where('is_active', true)])
             ->withCount('followers');
 
         // Поиск

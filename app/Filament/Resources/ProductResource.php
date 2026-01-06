@@ -7,7 +7,6 @@ use App\Filament\Resources\ProductResource\RelationManagers\ActivityLogsRelation
 use App\Filament\Resources\ProductResource\RelationManagers\ImagesRelationManager;
 use App\Filament\Resources\ProductResource\RelationManagers\VariantsRelationManager;
 use App\Models\Category;
-use App\Models\Company;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
@@ -224,8 +223,8 @@ class ProductResource extends Resource
                     ->sortable()
                     ->badge()
                     ->color('info')
-                    ->url(fn (Product $record): ?string => $record->company 
-                        ? route('filament.admin.resources.companies.edit', $record->company) 
+                    ->url(fn (Product $record): ?string => $record->company
+                        ? route('filament.admin.resources.companies.edit', $record->company)
                         : null),
 
                 Tables\Columns\TextColumn::make('sku')

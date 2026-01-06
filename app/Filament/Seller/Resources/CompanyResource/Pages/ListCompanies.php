@@ -13,7 +13,7 @@ class ListCompanies extends ListRecords
     protected function getHeaderActions(): array
     {
         $user = Auth::user();
-        
+
         // Если у пользователя нет компании - показать кнопку создания
         if ($user && ! $user->company) {
             return [
@@ -33,7 +33,7 @@ class ListCompanies extends ListRecords
     public function getSubheading(): ?string
     {
         $user = Auth::user();
-        
+
         if ($user && ! $user->company) {
             return 'You haven\'t created a company yet. Create one to start selling!';
         }

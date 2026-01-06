@@ -49,7 +49,7 @@ class CompanyResource extends Resource
     public static function canCreate(): bool
     {
         $user = Auth::user();
-        
+
         // Если у пользователя уже есть компания - нельзя создать ещё
         if ($user && $user->company) {
             return false;

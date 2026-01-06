@@ -54,9 +54,9 @@ class Company extends Model
         $counter = 1;
 
         while (static::where('slug', $slug)
-            ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
+            ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))
             ->exists()) {
-            $slug = $originalSlug . '-' . $counter;
+            $slug = $originalSlug.'-'.$counter;
             $counter++;
         }
 
@@ -117,7 +117,7 @@ class Company extends Model
             return $this->logo;
         }
 
-        return asset('storage/' . $this->logo);
+        return asset('storage/'.$this->logo);
     }
 
     /**
@@ -133,7 +133,7 @@ class Company extends Model
             return $this->banner;
         }
 
-        return asset('storage/' . $this->banner);
+        return asset('storage/'.$this->banner);
     }
 
     /**
