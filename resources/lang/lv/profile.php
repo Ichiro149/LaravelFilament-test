@@ -58,4 +58,28 @@ return [
     'member_since' => 'Dalībnieks kopš',
     'total_orders' => 'Kopā pasūtījumu',
     'total_spent' => 'Kopā iztērēts',
+
+    // Two-Factor Authentication
+    'two_factor' => 'Divfaktoru autentifikācija',
+    'two_factor_enabled' => '2FA ir iespējota',
+    'two_factor_disabled' => '2FA ir atspējota',
+    'two_factor_manage' => 'Pārvaldīt',
+    'two_factor_disable' => 'Atspējot',
+    'two_factor_enable' => 'Iespējot 2FA',
+    'two_factor_setup' => 'Divfaktoru autentifikācijas iestatīšana',
+    'two_factor_scan_qr' => 'Skenējiet šo QR kodu ar savu autentifikatora lietotni',
+    'two_factor_enter_code' => 'Ievadiet 6 ciparu kodu no lietotnes',
+    'two_factor_verify' => 'Apstiprināt un iespējot',
+    'two_factor_recovery_codes' => 'Atkopšanas kodi',
+    'two_factor_recovery_hint' => 'Saglabājiet šos kodus droši. Katru kodu var izmantot tikai vienu reizi.',
+    'two_factor_regenerate' => 'Ģenerēt jaunus kodus',
+    'two_factor_enabled_success' => 'Divfaktoru autentifikācija ir iespējota',
+    'two_factor_disabled_success' => 'Divfaktoru autentifikācija ir atspējota',
+    'two_factor_invalid_code' => 'Nederīgs verifikācijas kods',
+
+    // Google OAuth
+    'google_connected' => 'Google konts ir pievienots',
+    'google_not_connected' => 'Google konts nav pievienots',
+    'google_connect' => 'Pievienot Google',
+    'google_disconnect' => 'Atvienot',
 ];

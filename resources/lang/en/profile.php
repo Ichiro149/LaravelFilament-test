@@ -49,4 +49,28 @@ return [
     'profile_updated' => 'Profile updated successfully',
     'avatar_updated' => 'Avatar updated successfully',
     'account_deleted' => 'Account deleted successfully',
+
+    // Two-Factor Authentication
+    'two_factor' => 'Two-Factor Authentication',
+    'two_factor_enabled' => '2FA is enabled',
+    'two_factor_disabled' => '2FA is disabled',
+    'two_factor_manage' => 'Manage',
+    'two_factor_disable' => 'Disable',
+    'two_factor_enable' => 'Enable 2FA',
+    'two_factor_setup' => 'Setup Two-Factor Authentication',
+    'two_factor_scan_qr' => 'Scan this QR code with your authenticator app',
+    'two_factor_enter_code' => 'Enter the 6-digit code from your app',
+    'two_factor_verify' => 'Verify & Enable',
+    'two_factor_recovery_codes' => 'Recovery Codes',
+    'two_factor_recovery_hint' => 'Store these codes safely. Each code can only be used once.',
+    'two_factor_regenerate' => 'Regenerate Codes',
+    'two_factor_enabled_success' => 'Two-factor authentication has been enabled',
+    'two_factor_disabled_success' => 'Two-factor authentication has been disabled',
+    'two_factor_invalid_code' => 'Invalid verification code',
+
+    // Google OAuth
+    'google_connected' => 'Google account connected',
+    'google_not_connected' => 'Google account not connected',
+    'google_connect' => 'Connect Google',
+    'google_disconnect' => 'Disconnect',
 ];
