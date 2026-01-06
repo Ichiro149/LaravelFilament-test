@@ -1,17 +1,9 @@
-<![CDATA[<div align="center">
-
-# 🛒 ShopLy
-
-### Modern E-Commerce Platform
-
-<br>
+# 🛒 ShopLy — Modern E-Commerce Platform
 
 [![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
 [![Filament](https://img.shields.io/badge/Filament-3.2-FDAE4B?style=for-the-badge&logo=laravel&logoColor=white)](https://filamentphp.com)
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
 [![Tests](https://img.shields.io/badge/Tests-84%20Passed-22C55E?style=for-the-badge&logo=checkmarx&logoColor=white)](#-testing)
-
-<br>
 
 [![Alpine.js](https://img.shields.io/badge/Alpine.js-3.x-8BC0D0?style=flat-square&logo=alpine.js&logoColor=white)](https://alpinejs.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
@@ -21,35 +13,15 @@
 [![Redis](https://img.shields.io/badge/Redis-7.x-DC382D?style=flat-square&logo=redis&logoColor=white)](https://redis.io)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker&logoColor=white)](#-docker-installation)
 
-<br>
-
 **Full-featured marketplace with seller companies, admin panel & customer storefront**
-
-<br>
-
-[📖 Features](#-features) •
-[🚀 Installation](#-installation) •
-[💻 Development](#-development) •
-[📁 Structure](#-project-structure) •
-[🔌 API](#-api-reference) •
-[🧪 Tests](#-testing)
-
-</div>
 
 ---
 
 ## 📋 Table of Contents
 
 - [✨ Features](#-features)
-  - [🛍️ Customer Storefront](#️-customer-storefront)
-  - [🏢 Company System](#-company-system)
-  - [🎛️ Admin Panel](#️-admin-panel)
-  - [👨‍💼 Seller Panel](#-seller-panel)
-  - [🔔 System Features](#-system-features)
 - [🛠️ Tech Stack](#️-tech-stack)
 - [🚀 Installation](#-installation)
-  - [🐳 Docker](#-docker-installation)
-  - [💻 Local Setup](#-local-setup)
 - [💻 Development](#-development)
 - [📁 Project Structure](#-project-structure)
 - [🔌 API Reference](#-api-reference)
@@ -62,52 +34,21 @@
 
 ### 🛍️ Customer Storefront
 
-<table>
-<tr>
-<td>
+| 🔍 Product Discovery | 🛒 Shopping Experience |
+|:---------------------|:-----------------------|
+| ✅ Product catalog with advanced filters | ✅ Shopping cart with quantity management |
+| ✅ Category navigation with hierarchy | ✅ Wishlist for saving favorites |
+| ✅ Full-text search (products & companies) | ✅ Product comparison (side-by-side) |
+| ✅ Recently viewed products | ✅ Discount coupons support |
+| ✅ Related products suggestions | ✅ Guest & authenticated checkout |
 
-**🔍 Product Discovery**
-- Product catalog with advanced filters
-- Category navigation with hierarchy
-- Full-text search (products & companies)
-- Recently viewed products
-- Related products suggestions
-
-</td>
-<td>
-
-**🛒 Shopping Experience**
-- Shopping cart with quantity management
-- Wishlist for saving favorites
-- Product comparison (side-by-side)
-- Discount coupons support
-- Guest & authenticated checkout
-
-</td>
-</tr>
-<tr>
-<td>
-
-**⭐ Customer Engagement**
-- Product reviews & star ratings
-- Follow your favorite companies
-- Order tracking by number
-- Support tickets with attachments
-- Email notifications
-
-</td>
-<td>
-
-**🎨 User Experience**
-- Dark / Light theme toggle
-- Multi-language (EN, RU, LV)
-- Fully responsive design
-- Fast page loads with Vite
-- Real-time updates with Livewire
-
-</td>
-</tr>
-</table>
+| ⭐ Customer Engagement | 🎨 User Experience |
+|:-----------------------|:-------------------|
+| ✅ Product reviews & star ratings | ✅ Dark / Light theme toggle |
+| ✅ Follow your favorite companies | ✅ Multi-language (EN, RU, LV) |
+| ✅ Order tracking by number | ✅ Fully responsive design |
+| ✅ Support tickets with attachments | ✅ Fast page loads with Vite |
+| ✅ Email notifications | ✅ Real-time updates with Livewire |
 
 ---
 
@@ -124,12 +65,13 @@
 | 📦 **Product Ownership** | All products belong to a specific company, not just user |
 
 **Routes:**
-```
-/companies              → Browse all companies with search & filters
-/companies/{slug}       → Company profile page with products
-/companies/{id}/follow  → Follow/unfollow a company
-/seller                 → Seller panel to manage your company
-```
+
+| Route | Description |
+|:------|:------------|
+| `/companies` | Browse all companies with search & filters |
+| `/companies/{slug}` | Company profile page with products |
+| `/companies/{id}/follow` | Follow/unfollow a company |
+| `/seller` | Seller panel to manage your company |
 
 ---
 
@@ -137,56 +79,14 @@
 
 > Access at `/admin` — Full control over the platform
 
-<table>
-<tr>
-<th width="25%">📦 Catalog</th>
-<th width="25%">📋 Orders</th>
-<th width="25%">👥 Users</th>
-<th width="25%">🔧 System</th>
-</tr>
-<tr>
-<td valign="top">
-
-- Products CRUD
-- Product variants
-- Product images
-- Categories
-- CSV import/export
-- Company assignment
-
-</td>
-<td valign="top">
-
-- Order management
-- Status transitions
-- Order history
-- Refund requests
-- Invoice generation
-- Status notifications
-
-</td>
-<td valign="top">
-
-- Customer accounts
-- Role management
-- Activity logs
-- Support tickets
-- Ticket replies
-- User search
-
-</td>
-<td valign="top">
-
-- Company verification
-- Company moderation
-- Coupon management
-- Review moderation
-- Import jobs monitor
-- Failed imports
-
-</td>
-</tr>
-</table>
+| 📦 Catalog | 📋 Orders | 👥 Users | 🔧 System |
+|:-----------|:----------|:---------|:----------|
+| Products CRUD | Order management | Customer accounts | Company verification |
+| Product variants | Status transitions | Role management | Company moderation |
+| Product images | Order history | Activity logs | Coupon management |
+| Categories | Refund requests | Support tickets | Review moderation |
+| CSV import/export | Invoice generation | Ticket replies | Import jobs monitor |
+| Company assignment | Status notifications | User search | Failed imports |
 
 ---
 
@@ -268,8 +168,7 @@ make init
 
 **🌐 Access:** http://localhost:8080
 
-<details>
-<summary><b>📋 Available Make Commands</b></summary>
+#### Available Make Commands
 
 | Command | Description |
 |:--------|:------------|
@@ -283,10 +182,7 @@ make init
 | `make redis` | Open Redis CLI |
 | `make pint` | Run code style fixer |
 
-</details>
-
-<details>
-<summary><b>🐋 Docker Services</b></summary>
+#### Docker Services
 
 | Service | Port | Description |
 |:--------|:----:|:------------|
@@ -295,8 +191,6 @@ make init
 | **redis** | 6379 | Cache & sessions |
 | **queue** | — | Background job worker |
 | **mailpit** | 8025 | Email testing UI |
-
-</details>
 
 ---
 
@@ -360,6 +254,7 @@ composer dev
 ```
 
 This starts:
+
 | Service | Description |
 |:--------|:------------|
 | 🌐 **Laravel** | Development server at `localhost:8000` |
@@ -397,40 +292,41 @@ vendor/bin/pint
 📦 filament-test/
 │
 ├── 📂 app/
+│   │
 │   ├── 📂 Filament/
-│   │   ├── 📂 Resources/              # 👑 Admin panel resources
-│   │   │   ├── ProductResource.php    #    Products (moderation, company assignment)
-│   │   │   ├── CompanyResource.php    #    Companies (verification, moderation)
-│   │   │   ├── OrderResource.php      #    Orders (status, history)
-│   │   │   ├── UserResource.php       #    Users (accounts, roles)
-│   │   │   ├── CouponResource.php     #    Discount coupons
-│   │   │   ├── TicketResource.php     #    Support tickets
+│   │   ├── 📂 Resources/                  # 👑 Admin panel resources
+│   │   │   ├── ProductResource.php        #    Products (moderation, company assignment)
+│   │   │   ├── CompanyResource.php        #    Companies (verification, moderation)
+│   │   │   ├── OrderResource.php          #    Orders (status, history)
+│   │   │   ├── UserResource.php           #    Users (accounts, roles)
+│   │   │   ├── CouponResource.php         #    Discount coupons
+│   │   │   ├── TicketResource.php         #    Support tickets
 │   │   │   └── ...
 │   │   │
-│   │   └── 📂 Seller/                 # 🏪 Seller panel
+│   │   └── 📂 Seller/                     # 🏪 Seller panel
 │   │       └── 📂 Resources/
-│   │           ├── CompanyResource.php    # Own company management
-│   │           └── ProductResource.php    # Company products
+│   │           ├── CompanyResource.php    #    Own company management
+│   │           └── ProductResource.php    #    Company products
 │   │
 │   ├── 📂 Http/
-│   │   ├── 📂 Controllers/            # 🌐 Web controllers
-│   │   │   ├── CompanyController.php  #    Company pages & follow
-│   │   │   ├── ProductController.php  #    Product catalog
-│   │   │   ├── CartController.php     #    Shopping cart
-│   │   │   ├── WishlistController.php #    Wishlist
-│   │   │   ├── CheckoutController.php #    Checkout & orders
-│   │   │   ├── TicketController.php   #    Support tickets
-│   │   │   ├── SearchController.php   #    Global search
+│   │   ├── 📂 Controllers/                # 🌐 Web controllers
+│   │   │   ├── CompanyController.php      #    Company pages & follow
+│   │   │   ├── ProductController.php      #    Product catalog
+│   │   │   ├── CartController.php         #    Shopping cart
+│   │   │   ├── WishlistController.php     #    Wishlist
+│   │   │   ├── CheckoutController.php     #    Checkout & orders
+│   │   │   ├── TicketController.php       #    Support tickets
+│   │   │   ├── SearchController.php       #    Global search
 │   │   │   └── ...
 │   │   │
-│   │   ├── 📂 Livewire/               # ⚡ Livewire components
-│   │   └── 📂 Middleware/             # 🔒 Custom middleware
+│   │   ├── 📂 Livewire/                   # ⚡ Livewire components
+│   │   └── 📂 Middleware/                 # 🔒 Custom middleware
 │   │
-│   ├── 📂 Models/                     # 📊 Eloquent models (20+)
+│   ├── 📂 Models/                         # 📊 Eloquent models (20+)
 │   │   ├── User.php
-│   │   ├── Company.php                #    Seller companies
-│   │   ├── CompanyFollow.php          #    Follow relationships
-│   │   ├── Product.php                #    Products (→ Company)
+│   │   ├── Company.php                    #    Seller companies
+│   │   ├── CompanyFollow.php              #    Follow relationships
+│   │   ├── Product.php                    #    Products (→ Company)
 │   │   ├── ProductVariant.php
 │   │   ├── ProductImage.php
 │   │   ├── Category.php
@@ -445,28 +341,28 @@ vendor/bin/pint
 │   │   ├── TicketMessage.php
 │   │   └── ...
 │   │
-│   ├── 📂 Notifications/              # 📧 Email & in-app notifications
-│   ├── 📂 Observers/                  # 👀 Model event observers
-│   ├── 📂 Policies/                   # 🔐 Authorization policies
-│   └── 📂 Jobs/                       # ⚙️ Background jobs
+│   ├── 📂 Notifications/                  # 📧 Email & in-app notifications
+│   ├── 📂 Observers/                      # 👀 Model event observers
+│   ├── 📂 Policies/                       # 🔐 Authorization policies
+│   └── 📂 Jobs/                           # ⚙️ Background jobs
 │       └── ImportProductsJob.php
 │
 ├── 📂 database/
-│   ├── 📂 factories/                  # 🏭 Model factories for testing
-│   ├── 📂 migrations/                 # 📋 Database schema
-│   └── 📂 seeders/                    # 🌱 Sample data
+│   ├── 📂 factories/                      # 🏭 Model factories for testing
+│   ├── 📂 migrations/                     # 📋 Database schema
+│   └── 📂 seeders/                        # 🌱 Sample data
 │
 ├── 📂 resources/
-│   ├── 📂 css/                        # 🎨 Modular stylesheets
-│   ├── 📂 js/                         # 📜 Alpine.js components
-│   ├── 📂 lang/                       # 🌍 Translations
-│   │   ├── 📂 en/                     #    English
-│   │   ├── 📂 ru/                     #    Russian
-│   │   └── 📂 lv/                     #    Latvian
-│   └── 📂 views/                      # 🖼️ Blade templates
+│   ├── 📂 css/                            # 🎨 Modular stylesheets
+│   ├── 📂 js/                             # 📜 Alpine.js components
+│   ├── 📂 lang/                           # 🌍 Translations
+│   │   ├── 📂 en/                         #    English
+│   │   ├── 📂 ru/                         #    Russian
+│   │   └── 📂 lv/                         #    Latvian
+│   └── 📂 views/                          # 🖼️ Blade templates
 │
 └── 📂 tests/
-    ├── 📂 Feature/                    # 🧪 Feature tests (84 tests)
+    ├── 📂 Feature/                        # 🧪 Feature tests (84 tests)
     │   ├── AuthTest.php
     │   ├── CartTest.php
     │   ├── OrderTest.php
@@ -475,7 +371,7 @@ vendor/bin/pint
     │   ├── CouponTest.php
     │   ├── ReviewTest.php
     │   └── ...
-    └── 📂 Unit/                       # 🔬 Unit tests
+    └── 📂 Unit/                           # 🔬 Unit tests
 ```
 
 ---
@@ -608,17 +504,17 @@ composer test
 ### Environment Variables
 
 ```env
-# ═══════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════
 # Application
-# ═══════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════
 APP_NAME=ShopLy
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost:8000
 
-# ═══════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════
 # Database
-# ═══════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -626,25 +522,26 @@ DB_DATABASE=shoply
 DB_USERNAME=root
 DB_PASSWORD=
 
-# ═══════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════
 # Queue (required for imports & notifications)
-# ═══════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════
 QUEUE_CONNECTION=database
 
-# ═══════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════
 # Mail
-# ═══════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════
 MAIL_MAILER=smtp
 MAIL_HOST=mailpit
 MAIL_PORT=1025
 MAIL_FROM_ADDRESS="shop@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
 
-# ═══════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════
 # Session & Cache
-# ═══════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════
 SESSION_DRIVER=database
 CACHE_STORE=database
+
 # Or use Redis:
 # SESSION_DRIVER=redis
 # CACHE_STORE=redis
@@ -655,7 +552,7 @@ CACHE_STORE=database
 
 Background jobs are used for:
 - 📥 Bulk product imports
-- 📧 Email notifications  
+- 📧 Email notifications
 - 🔔 Order status change notifications
 
 ```bash
@@ -683,8 +580,6 @@ This project is open-sourced software licensed under the [MIT license](https://o
 
 ---
 
-<div align="center">
-
 ### Built with ❤️ using
 
 [![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
@@ -693,9 +588,4 @@ This project is open-sourced software licensed under the [MIT license](https://o
 [![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
 
-<br>
-
 **⭐ Star this repo if you find it useful!**
-
-</div>
-]]>
