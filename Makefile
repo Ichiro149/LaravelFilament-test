@@ -72,11 +72,16 @@ cache: ## Clear all caches
 	docker compose exec app php artisan config:clear
 	docker compose exec app php artisan route:clear
 	docker compose exec app php artisan view:clear
+	docker compose exec app php artisan app:clear-cache
+
+cache-warm: ## Warm up application caches
+	docker compose exec app php artisan app:warm-cache
 
 optimize: ## Optimize for production
 	docker compose exec app php artisan config:cache
 	docker compose exec app php artisan route:cache
 	docker compose exec app php artisan view:cache
+	docker compose exec app php artisan app:warm-cache
 
 # ========================================
 # Queue & Jobs

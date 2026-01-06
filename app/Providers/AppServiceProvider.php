@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Ticket;
+use App\Observers\CategoryObserver;
 use App\Observers\ProductObserver;
 use App\Observers\TicketObserver;
 use Carbon\Carbon;
@@ -28,11 +30,21 @@ class AppServiceProvider extends ServiceProvider
     {
         Ticket::observe(TicketObserver::class);
         Product::observe(ProductObserver::class);
+        Category::observe(CategoryObserver::class);
 
         // Синхронизируем локаль Carbon с локалью приложения
         Carbon::setLocale(App::getLocale());
 
-        // Или можно использовать middleware для динамической смены
+        // Register View Composers for cached data
+        \Illuminate\Support\Facades\View::composer(
+            ['layouts.app', 'layouts.navigation', 'components.navigation'],
+            \App\View\Composers\NavigationComposer::class
+        );
+
+        \Illuminate\Support\Facades\View::composer(
+            'welcome',
+            \App\View\Composers\HomepageComposer::class
+        );
 
         // Register Livewire components aliases explicitly so they are discoverable
         if (class_exists(\App\Http\Livewire\ImportProgress::class)) {
