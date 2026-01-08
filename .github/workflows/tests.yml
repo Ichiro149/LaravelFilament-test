@@ -9,6 +9,7 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    environment: Testing
 
     services:
       mysql:
