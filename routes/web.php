@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartCouponController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\PageController;
@@ -25,7 +27,7 @@ Route::get('/search', [SearchController::class, 'index'])->name('search.global')
 // Static pages
 Route::get('/about', [PageController::class, 'about'])->name('pages.about');
 Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
-Route::post('/contact', [PageController::class, 'sendContact'])->name('pages.contact.send');
+Route::post('/contact', [PageController::class, 'sendContact'])->name('pages.contact.send')->middleware('throttle:contact');
 Route::get('/faq', [PageController::class, 'faq'])->name('pages.faq');
 Route::get('/recently-viewed', [PageController::class, 'recentlyViewed'])->name('pages.recently-viewed');
 Route::get('/privacy', [PageController::class, 'privacy'])->name('pages.privacy');
@@ -131,27 +133,27 @@ Route::prefix('products')->name('products.')->group(function () {
 // Categories
 Route::get('/category/{category:slug}', [ProductController::class, 'category'])->name('category.show');
 
-// Cart - all routes in one place
-Route::prefix('cart')->name('cart.')->group(function () {
-    Route::get('/', [CartController::class, 'index'])->name('index');
+// Cart - all routes in one place (with rate limiting)
+Route::prefix('cart')->name('cart.')->middleware('throttle:cart')->group(function () {
+    Route::get('/', [CartController::class, 'index'])->name('index')->withoutMiddleware('throttle:cart');
     Route::post('/add/{productId}', [CartController::class, 'add'])->name('add');
     Route::patch('/update/{itemId}', [CartController::class, 'update'])->name('update');
     Route::delete('/remove/{itemId}', [CartController::class, 'remove'])->name('remove');
-    Route::get('/count', [CartController::class, 'getCartCount'])->name('count');
-    Route::post('/coupon/apply', [CartController::class, 'applyCoupon'])->name('coupon.apply');
-    Route::delete('/coupon/remove', [CartController::class, 'removeCoupon'])->name('coupon.remove');
+    Route::get('/count', [CartController::class, 'getCartCount'])->name('count')->withoutMiddleware('throttle:cart');
+    Route::post('/coupon/apply', [CartCouponController::class, 'apply'])->name('coupon.apply')->middleware('throttle:coupon');
+    Route::delete('/coupon/remove', [CartCouponController::class, 'remove'])->name('coupon.remove');
 });
 
 // Checkout
 Route::prefix('checkout')->name('checkout.')->group(function () {
-    Route::get('/', [CartController::class, 'checkout'])->name('show');
-    Route::post('/', [CartController::class, 'placeOrder'])->name('place');
-    Route::get('/success/{order}', [CartController::class, 'success'])->name('success');
+    Route::get('/', [CheckoutController::class, 'show'])->name('show');
+    Route::post('/', [CheckoutController::class, 'placeOrder'])->name('place');
+    Route::get('/success/{order}', [CheckoutController::class, 'success'])->name('success');
 });
 
 // Order verification
-Route::get('/checkout/verify/{orderId}', [CartController::class, 'verifyOrder'])->name('checkout.verify');
-Route::post('/checkout/verify/{orderId}', [CartController::class, 'verifyOrderPost'])->name('checkout.verify.post');
+Route::get('/checkout/verify/{orderId}', [CheckoutController::class, 'verifyOrder'])->name('checkout.verify');
+Route::post('/checkout/verify/{orderId}', [CheckoutController::class, 'verifyOrderPost'])->name('checkout.verify.post');
 
 // Reviews
 Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('product.reviews.store');
@@ -179,13 +181,13 @@ Route::prefix('compare')->name('compare.')->group(function () {
     Route::delete('/clear', [App\Http\Controllers\CompareController::class, 'clear'])->name('clear');
 });
 
-// Support Tickets Routes
+// Support Tickets Routes (with rate limiting for creation)
 Route::middleware(['auth'])->prefix('support')->name('tickets.')->group(function () {
     Route::get('/', [TicketController::class, 'index'])->name('index');
     Route::get('/create', [TicketController::class, 'create'])->name('create');
-    Route::post('/', [TicketController::class, 'store'])->name('store');
+    Route::post('/', [TicketController::class, 'store'])->name('store')->middleware('throttle:tickets');
     Route::get('/{ticket}', [TicketController::class, 'show'])->name('show');
-    Route::post('/{ticket}/reply', [TicketController::class, 'reply'])->name('reply');
+    Route::post('/{ticket}/reply', [TicketController::class, 'reply'])->name('reply')->middleware('throttle:tickets');
     Route::get('/{ticket}/check-new-messages', [TicketController::class, 'checkNewMessages'])->name('check-new-messages');
     Route::post('/{ticket}/close', [TicketController::class, 'close'])->name('close');
     Route::post('/{ticket}/reopen', [TicketController::class, 'reopen'])->name('reopen');
@@ -246,17 +248,17 @@ Route::middleware(['auth'])->prefix('settings')->name('settings.')->group(functi
     // Password
     Route::post('/password', [App\Http\Controllers\SettingsController::class, 'updatePassword'])->name('password.update');
 
-    // Addresses
-    Route::post('/addresses', [App\Http\Controllers\SettingsController::class, 'storeAddress'])->name('addresses.store');
-    Route::put('/addresses/{address}', [App\Http\Controllers\SettingsController::class, 'updateAddress'])->name('addresses.update');
-    Route::delete('/addresses/{address}', [App\Http\Controllers\SettingsController::class, 'deleteAddress'])->name('addresses.destroy');
-    Route::post('/addresses/{address}/default', [App\Http\Controllers\SettingsController::class, 'setDefaultAddress'])->name('addresses.default');
+    // Addresses (delegated to Settings\AddressController)
+    Route::post('/addresses', [App\Http\Controllers\Settings\AddressController::class, 'store'])->name('addresses.store');
+    Route::put('/addresses/{address}', [App\Http\Controllers\Settings\AddressController::class, 'update'])->name('addresses.update');
+    Route::delete('/addresses/{address}', [App\Http\Controllers\Settings\AddressController::class, 'destroy'])->name('addresses.destroy');
+    Route::post('/addresses/{address}/default', [App\Http\Controllers\Settings\AddressController::class, 'setDefault'])->name('addresses.default');
 
-    // Payment Methods
-    Route::post('/payment-methods', [App\Http\Controllers\SettingsController::class, 'storePaymentMethod'])->name('payment-methods.store');
-    Route::put('/payment-methods/{paymentMethod}', [App\Http\Controllers\SettingsController::class, 'updatePaymentMethod'])->name('payment-methods.update');
-    Route::delete('/payment-methods/{paymentMethod}', [App\Http\Controllers\SettingsController::class, 'deletePaymentMethod'])->name('payment-methods.destroy');
-    Route::post('/payment-methods/{paymentMethod}/default', [App\Http\Controllers\SettingsController::class, 'setDefaultPaymentMethod'])->name('payment-methods.default');
+    // Payment Methods (delegated to Settings\PaymentMethodController)
+    Route::post('/payment-methods', [App\Http\Controllers\Settings\PaymentMethodController::class, 'store'])->name('payment-methods.store');
+    Route::put('/payment-methods/{paymentMethod}', [App\Http\Controllers\Settings\PaymentMethodController::class, 'update'])->name('payment-methods.update');
+    Route::delete('/payment-methods/{paymentMethod}', [App\Http\Controllers\Settings\PaymentMethodController::class, 'destroy'])->name('payment-methods.destroy');
+    Route::post('/payment-methods/{paymentMethod}/default', [App\Http\Controllers\Settings\PaymentMethodController::class, 'setDefault'])->name('payment-methods.default');
 
     // Social Accounts
     Route::delete('/social-accounts/{socialAccount}', [App\Http\Controllers\SettingsController::class, 'unlinkSocialAccount'])->name('social-accounts.unlink');
@@ -275,9 +277,10 @@ Route::middleware(['auth'])->prefix('analytics')->name('analytics.')->group(func
     Route::get('/data', [App\Http\Controllers\AnalyticsController::class, 'getData'])->name('data');
 });
 
-// Invoice Routes (public access by order number, protected by ID)
+// Invoice Routes (protected by authorization)
 Route::prefix('invoice')->name('invoice.')->group(function () {
-    Route::get('/order/{orderNumber}', [App\Http\Controllers\InvoiceController::class, 'downloadByNumber'])->name('download.number');
+    // Download by order number requires email verification (POST with email in body)
+    Route::post('/order/{orderNumber}', [App\Http\Controllers\InvoiceController::class, 'downloadByNumber'])->name('download.number');
     Route::get('/{order}/download', [App\Http\Controllers\InvoiceController::class, 'download'])->name('download');
     Route::get('/{order}/view', [App\Http\Controllers\InvoiceController::class, 'view'])->name('view');
 });

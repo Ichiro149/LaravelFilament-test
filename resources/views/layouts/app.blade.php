@@ -1042,6 +1042,54 @@
           } 
       })">
     
+    <!-- Demo Banner -->
+    <div class="demo-banner">
+        <svg class="demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <span>{{ __('demo.banner_short') }}</span>
+        <span class="demo-badge">DEMO</span>
+    </div>
+    <style>
+        .demo-banner {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 10px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 10px 20px !important;
+            background: linear-gradient(90deg, #1a1a2e, #0f3460, #1a1a2e) !important;
+            border: none !important;
+            border-bottom: 1px solid rgba(255, 193, 7, 0.3) !important;
+            box-shadow: none !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            color: rgba(255, 255, 255, 0.9) !important;
+            box-sizing: border-box !important;
+        }
+        .demo-banner .demo-icon {
+            width: 18px !important;
+            height: 18px !important;
+            color: #ffc107 !important;
+            flex-shrink: 0 !important;
+        }
+        .demo-banner .demo-badge {
+            background: linear-gradient(135deg, #ffc107, #ff9800) !important;
+            color: #1a1a2e !important;
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            padding: 3px 10px !important;
+            border-radius: 10px !important;
+            letter-spacing: 0.5px !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+
     <!-- Mobile Navigation Overlay -->
     <div class="mobile-nav-overlay" :class="{ 'open': mobileMenuOpen }" @click="mobileMenuOpen = false"></div>
     

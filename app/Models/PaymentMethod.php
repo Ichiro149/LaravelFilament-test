@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Traits\BelongsToUser;
+use App\Traits\HasDefaultItem;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * PaymentMethod - stores ONLY tokens and masked data
@@ -22,6 +23,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class PaymentMethod extends Model
 {
+    use BelongsToUser;
+    use HasDefaultItem;
     use HasFactory;
 
     protected $fillable = [
@@ -46,23 +49,6 @@ class PaymentMethod extends Model
     protected $hidden = [
         'token', // Never expose tokens
     ];
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Set as default payment method
-     */
-    public function setAsDefault(): void
-    {
-        self::where('user_id', $this->user_id)
-            ->where('id', '!=', $this->id)
-            ->update(['is_default' => false]);
-
-        $this->update(['is_default' => true]);
-    }
 
     /**
      * Check if card is expired

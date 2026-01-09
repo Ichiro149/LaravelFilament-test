@@ -12,6 +12,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CustomerReviewResource extends Resource
 {
@@ -25,9 +26,22 @@ class CustomerReviewResource extends Resource
 
     protected static ?string $navigationLabel = 'Reviews';
 
+    /**
+     * Optimize queries with eager loading
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['order', 'user', 'product', 'moderatedBy']);
+    }
+
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::where('status', 'pending')->count() ?: null;
+        return cache()->remember(
+            'filament_pending_reviews_count',
+            now()->addMinutes(5),
+            fn () => static::getModel()::where('status', 'pending')->count()
+        ) ?: null;
     }
 
     public static function getNavigationBadgeColor(): ?string

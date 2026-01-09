@@ -14,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CompanyResource extends Resource
 {
@@ -26,6 +27,16 @@ class CompanyResource extends Resource
     protected static ?int $navigationSort = 5;
 
     protected static ?string $navigationLabel = 'Companies (Moderation)';
+
+    /**
+     * Optimize queries with eager loading
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['owner'])
+            ->withCount(['products', 'followers']);
+    }
 
     /**
      * Админы не могут создавать компании - только модерировать

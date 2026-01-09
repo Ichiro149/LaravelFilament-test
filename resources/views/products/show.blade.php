@@ -38,6 +38,9 @@
 @endpush
 
 @section('content')
+<!-- Recently Viewed Tracker (hidden, just saves current product to localStorage) -->
+<div x-data="rvComponent()" x-init="init()" style="display:none;"></div>
+
 <div x-data="productPage()" x-init="init({{ $product->stock_quantity }}, {{ $product->id }})" class="product-page">
     <!-- Toast Notifications Container -->
     <div class="toast-container">

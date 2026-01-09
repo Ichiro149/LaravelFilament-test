@@ -4,28 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
     /**
-     * Скачать инвойс заказа (для авторизованных пользователей или гостевых заказов)
+     * Download invoice for an order (for authenticated users or guest orders).
      */
     public function download(Order $order)
     {
         $user = Auth::user();
 
-        // Гостевой заказ (user_id = null) - разрешаем всем
+        // Guest order (user_id = null) - allow if session matches
         if ($order->user_id === null) {
+            $sessionOrderId = session('last_order_id');
+            if ($sessionOrderId != $order->id) {
+                abort(403, __('invoice.errors.access_denied'));
+            }
+
             return $this->generatePdf($order);
         }
 
-        // Для заказов с user_id - требуем авторизацию
+        // For orders with user_id - require authentication
         if (! $user) {
             return redirect()->route('login');
         }
 
-        // Проверка: только владелец или админ
+        // Check: only owner or admin
         if ($user->id !== $order->user_id && ! $user->isAdmin()) {
             abort(403, __('invoice.errors.access_denied'));
         }
@@ -34,24 +40,41 @@ class InvoiceController extends Controller
     }
 
     /**
-     * Скачать инвойс по номеру заказа (публичный доступ)
+     * Download invoice by order number (requires email verification).
+     *
+     * This provides a secure way to access invoices without full authentication
+     * by requiring the customer email to match the order.
      */
-    public function downloadByNumber(string $orderNumber)
+    public function downloadByNumber(Request $request, string $orderNumber)
     {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
         $order = Order::where('order_number', $orderNumber)->firstOrFail();
+
+        // Security check: email must match the order's customer email
+        if (strtolower($order->customer_email) !== strtolower($request->email)) {
+            abort(403, __('invoice.errors.email_mismatch'));
+        }
 
         return $this->generatePdf($order);
     }
 
     /**
-     * Просмотр инвойса в браузере
+     * View invoice in browser.
      */
     public function view(Order $order)
     {
         $user = Auth::user();
 
-        // Гостевой заказ - разрешаем
+        // Guest order - allow if session matches
         if ($order->user_id === null) {
+            $sessionOrderId = session('last_order_id');
+            if ($sessionOrderId != $order->id) {
+                abort(403, __('invoice.errors.access_denied'));
+            }
+
             return $this->generatePdf($order, false);
         }
 
@@ -67,7 +90,7 @@ class InvoiceController extends Controller
     }
 
     /**
-     * Генерация PDF
+     * Generate PDF invoice.
      */
     private function generatePdf(Order $order, bool $download = true)
     {
@@ -75,21 +98,17 @@ class InvoiceController extends Controller
 
         $data = [
             'order' => $order,
-            'company' => [
-                'name' => 'ShopLy',
-                'address' => '123 Commerce Street',
-                'city' => 'Business City, BC 12345',
-                'country' => 'United States',
-                'phone' => '+1 (555) 123-4567',
-                'email' => 'support@shoply.com',
-                'website' => 'www.shoply.com',
-            ],
+            'company' => config('invoice.company'),
             'generated_at' => now(),
         ];
 
         $pdf = Pdf::loadView('invoices.template', $data);
 
-        $pdf->setPaper('a4', 'portrait');
+        $pdfConfig = config('invoice.pdf', []);
+        $pdf->setPaper(
+            $pdfConfig['paper'] ?? 'a4',
+            $pdfConfig['orientation'] ?? 'portrait'
+        );
 
         $filename = 'invoice-'.$order->order_number.'.pdf';
 

@@ -12,6 +12,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class RefundRequestResource extends Resource
 {
@@ -23,9 +24,22 @@ class RefundRequestResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    /**
+     * Optimize queries with eager loading
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['order', 'user', 'processedBy']);
+    }
+
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::where('status', 'pending')->count() ?: null;
+        return cache()->remember(
+            'filament_pending_refunds_count',
+            now()->addMinutes(5),
+            fn () => static::getModel()::where('status', 'pending')->count()
+        ) ?: null;
     }
 
     public static function getNavigationBadgeColor(): ?string

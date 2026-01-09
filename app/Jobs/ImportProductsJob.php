@@ -18,10 +18,31 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Throwable;
 
 class ImportProductsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    /**
+     * The number of times the job may be attempted.
+     */
+    public int $tries = 3;
+
+    /**
+     * The number of seconds the job can run before timing out.
+     */
+    public int $timeout = 600;
+
+    /**
+     * The maximum number of unhandled exceptions to allow before failing.
+     */
+    public int $maxExceptions = 2;
+
+    /**
+     * The number of seconds to wait before retrying the job.
+     */
+    public int $backoff = 60;
 
     protected string $path;
 
@@ -34,6 +55,9 @@ class ImportProductsJob implements ShouldQueue
         $this->queue = 'imports';
     }
 
+    /**
+     * Execute the job.
+     */
     public function handle(): void
     {
         $fullPath = Storage::path($this->path);
@@ -401,6 +425,36 @@ class ImportProductsJob implements ShouldQueue
             Log::warning('ImportProductsJob: image download exception', ['url' => $url, 'error' => $e->getMessage()]);
 
             return null;
+        }
+    }
+
+    /**
+     * Handle a job failure.
+     */
+    public function failed(Throwable $exception): void
+    {
+        Log::error('ImportProductsJob failed', [
+            'import_id' => $this->importJobId,
+            'path' => $this->path,
+            'error' => $exception->getMessage(),
+        ]);
+
+        if ($import = ImportJob::find($this->importJobId)) {
+            $import->update([
+                'status' => 'failed',
+                'finished_at' => now(),
+            ]);
+
+            // Notify user about failure
+            if ($import->user_id && $user = User::find($import->user_id)) {
+                $user->notify(new ImportFinishedNotification(
+                    $this->importJobId,
+                    'failed',
+                    0,
+                    0,
+                    null
+                ));
+            }
         }
     }
 }

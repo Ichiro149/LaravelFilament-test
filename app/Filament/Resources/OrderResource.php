@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class OrderResource extends Resource
 {
@@ -18,6 +19,16 @@ class OrderResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
     protected static ?string $navigationGroup = 'Orders';
+
+    /**
+     * Optimize queries with eager loading
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['status', 'user'])
+            ->withCount('items');
+    }
 
     public static function form(Form $form): Form
     {

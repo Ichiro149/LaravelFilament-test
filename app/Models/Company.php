@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+use App\Traits\HasSlug;
+use App\Traits\HasStorageFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
 
 class Company extends Model
 {
     use HasFactory;
+    use HasSlug;
+    use HasStorageFile;
 
     protected $fillable = [
         'user_id',
@@ -35,33 +38,6 @@ class Company extends Model
         'is_verified' => 'boolean',
         'is_active' => 'boolean',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($company) {
-            if (empty($company->slug) && ! empty($company->name)) {
-                $company->slug = static::generateUniqueSlug($company->name);
-            }
-        });
-    }
-
-    public static function generateUniqueSlug(string $name, ?int $ignoreId = null): string
-    {
-        $slug = Str::slug($name);
-        $originalSlug = $slug;
-        $counter = 1;
-
-        while (static::where('slug', $slug)
-            ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))
-            ->exists()) {
-            $slug = $originalSlug.'-'.$counter;
-            $counter++;
-        }
-
-        return $slug;
-    }
 
     // =========================================================
     // RELATIONSHIPS
@@ -101,7 +77,7 @@ class Company extends Model
     }
 
     // =========================================================
-    // ACCESSORS
+    // ACCESSORS (using HasStorageFile trait)
     // =========================================================
 
     /**
@@ -109,15 +85,7 @@ class Company extends Model
      */
     public function getLogoUrlAttribute(): ?string
     {
-        if (! $this->logo) {
-            return null;
-        }
-
-        if (str_starts_with($this->logo, 'http')) {
-            return $this->logo;
-        }
-
-        return asset('storage/'.$this->logo);
+        return $this->getStorageUrl('logo');
     }
 
     /**
@@ -125,31 +93,25 @@ class Company extends Model
      */
     public function getBannerUrlAttribute(): ?string
     {
-        if (! $this->banner) {
-            return null;
-        }
-
-        if (str_starts_with($this->banner, 'http')) {
-            return $this->banner;
-        }
-
-        return asset('storage/'.$this->banner);
+        return $this->getStorageUrl('banner');
     }
 
     /**
      * Количество подписчиков
+     * NOTE: Use withCount('followers') when loading to avoid N+1
      */
     public function getFollowersCountAttribute(): int
     {
-        return $this->followers()->count();
+        return $this->followers_count ?? $this->followers()->count();
     }
 
     /**
      * Количество товаров
+     * NOTE: Use withCount('activeProducts') when loading to avoid N+1
      */
     public function getProductsCountAttribute(): int
     {
-        return $this->products()->where('is_active', true)->count();
+        return $this->active_products_count ?? $this->products()->where('is_active', true)->count();
     }
 
     // =========================================================

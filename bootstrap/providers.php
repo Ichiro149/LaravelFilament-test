@@ -3,6 +3,7 @@
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\AuthServiceProvider::class,
+    App\Providers\RateLimitServiceProvider::class,
     App\Providers\Filament\AdminPanelProvider::class,
     App\Providers\Filament\SellerPanelProvider::class,
 ];

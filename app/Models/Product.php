@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +12,7 @@ use Illuminate\Support\Str;
 class Product extends Model
 {
     use HasFactory;
+    use HasSlug;
 
     protected $fillable = [
         'user_id',
@@ -44,17 +46,8 @@ class Product extends Model
         parent::boot();
 
         static::creating(function ($product) {
-            if (empty($product->slug) && ! empty($product->name)) {
-                $product->slug = static::generateUniqueSlug($product->name);
-            }
             if (empty($product->sku)) {
                 $product->sku = 'SKU-'.strtoupper(Str::random(8));
-            }
-        });
-
-        static::updating(function ($product) {
-            if ($product->isDirty('name') && empty($product->slug)) {
-                $product->slug = static::generateUniqueSlug($product->name, $product->id);
             }
         });
 
@@ -181,13 +174,8 @@ class Product extends Model
     }
 
     // =========================================================
-    // EXISTING METHODS
+    // PRICE & DISCOUNT HELPERS
     // =========================================================
-
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
 
     public function getCurrentPrice()
     {
@@ -203,20 +191,54 @@ class Product extends Model
         return round((($this->price - $this->sale_price) / $this->price) * 100);
     }
 
+    // =========================================================
+    // RATING ACCESSORS (use withCount for optimization)
+    // =========================================================
+
+    /**
+     * Get average rating
+     * NOTE: For lists, use Product::withAvg('approvedReviews', 'overall_rating')
+     */
     public function getAverageRatingAttribute(): ?float
     {
+        // Check if we have preloaded the average
+        if (isset($this->attributes['approved_reviews_avg_overall_rating'])) {
+            $avg = $this->attributes['approved_reviews_avg_overall_rating'];
+
+            return $avg ? round($avg, 1) : null;
+        }
+
         $avg = $this->approvedReviews()->avg('overall_rating');
 
         return $avg ? round($avg, 1) : null;
     }
 
+    /**
+     * Get reviews count
+     * NOTE: For lists, use Product::withCount('approvedReviews')
+     */
     public function getReviewsCountAttribute(): int
     {
+        // Check if we have preloaded the count
+        if (isset($this->attributes['approved_reviews_count'])) {
+            return (int) $this->attributes['approved_reviews_count'];
+        }
+
         return $this->approvedReviews()->count();
     }
 
+    // =========================================================
+    // IMAGE HELPERS
+    // =========================================================
+
     public function getPrimaryImage()
     {
+        // If images are already loaded, use collection methods
+        if ($this->relationLoaded('images')) {
+            return $this->images->firstWhere('is_primary', true)
+                ?? $this->images->first();
+        }
+
         return $this->images()->where('is_primary', true)->first()
             ?? $this->images()->orderBy('sort_order')->first();
     }
@@ -238,6 +260,10 @@ class Product extends Model
 
     public function hasPrimaryImage(): bool
     {
+        if ($this->relationLoaded('images')) {
+            return $this->images->contains('is_primary', true);
+        }
+
         return $this->images()->where('is_primary', true)->exists();
     }
 
@@ -245,6 +271,10 @@ class Product extends Model
     {
         return $this->stock_quantity > 0;
     }
+
+    // =========================================================
+    // SCOPES
+    // =========================================================
 
     public function scopeActive($query)
     {

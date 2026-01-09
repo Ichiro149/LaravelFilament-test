@@ -4,11 +4,18 @@ namespace App\Notifications;
 
 use App\Models\Ticket;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewTicketCreated extends Notification
+class NewTicketCreated extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * Number of times to retry the notification.
+     */
+    public int $tries = 3;
 
     public Ticket $ticket;
 
@@ -19,7 +26,21 @@ class NewTicketCreated extends Notification
 
     public function via($notifiable): array
     {
-        return ['database'];
+        // Send email to admins/staff, database to all
+        return ['database', 'mail'];
+    }
+
+    public function toMail($notifiable): MailMessage
+    {
+        return (new MailMessage)
+            ->subject(__('notifications.new_ticket_subject', ['subject' => $this->ticket->subject]))
+            ->greeting(__('notifications.new_ticket_greeting'))
+            ->line(__('notifications.new_ticket_line', [
+                'user' => $this->ticket->user->name ?? 'User',
+                'subject' => $this->ticket->subject,
+            ]))
+            ->line(__('notifications.priority').': '.ucfirst($this->ticket->priority))
+            ->action(__('notifications.view_ticket'), route('filament.admin.resources.tickets.view', $this->ticket));
     }
 
     public function toArray($notifiable): array

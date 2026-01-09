@@ -2,11 +2,18 @@
 
 namespace App\Models;
 
+use App\Traits\BelongsToUser;
+use App\Traits\HasStatusLabels;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CustomerReview extends Model
 {
+    use BelongsToUser;
+    use HasFactory;
+    use HasStatusLabels;
+
     protected $fillable = [
         'order_id',
         'user_id',
@@ -43,14 +50,21 @@ class CustomerReview extends Model
         });
     }
 
+    /**
+     * Status labels for this model
+     */
+    protected function statusLabels(): array
+    {
+        return [
+            'pending' => __('Pending Review'),
+            'approved' => __('Approved'),
+            'rejected' => __('Rejected'),
+        ];
+    }
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function product(): BelongsTo
@@ -63,50 +77,9 @@ class CustomerReview extends Model
         return $this->belongsTo(User::class, 'moderated_by');
     }
 
-    public function isPending(): bool
-    {
-        return $this->status === 'pending';
-    }
-
-    public function isApproved(): bool
-    {
-        return $this->status === 'approved';
-    }
-
-    public function isRejected(): bool
-    {
-        return $this->status === 'rejected';
-    }
-
-    public function getStatusLabelAttribute(): string
-    {
-        return match ($this->status) {
-            'pending' => 'Pending Review',
-            'approved' => 'Approved',
-            'rejected' => 'Rejected',
-            default => ucfirst($this->status),
-        };
-    }
-
-    public function getStatusColorAttribute(): string
-    {
-        return match ($this->status) {
-            'pending' => 'warning',
-            'approved' => 'success',
-            'rejected' => 'danger',
-            default => 'gray',
-        };
-    }
-
     // Скоуп для одобренных отзывов
     public function scopeApproved($query)
     {
         return $query->where('status', 'approved');
-    }
-
-    // Скоуп для отзывов пользователя
-    public function scopeByUser($query, $userId)
-    {
-        return $query->where('user_id', $userId);
     }
 }

@@ -49,6 +49,13 @@ class Webhook extends Model
     ];
 
     /**
+     * Hide sensitive data from serialization
+     */
+    protected $hidden = [
+        'secret',
+    ];
+
+    /**
      * Get all logs for this webhook.
      */
     public function logs(): HasMany

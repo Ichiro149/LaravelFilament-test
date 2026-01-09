@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\BelongsToUser;
+use App\Traits\HasDefaultItem;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserAddress extends Model
 {
+    use BelongsToUser;
+    use HasDefaultItem;
     use HasFactory;
 
     protected $fillable = [
@@ -32,24 +35,6 @@ class UserAddress extends Model
         'address_line1',
         'address_line2',
     ];
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Set this address as default, unset others
-     */
-    public function setAsDefault(): void
-    {
-        // Unset other defaults
-        self::where('user_id', $this->user_id)
-            ->where('id', '!=', $this->id)
-            ->update(['is_default' => false]);
-
-        $this->update(['is_default' => true]);
-    }
 
     /**
      * Accessor for address_line1 (alias for address_line_1)

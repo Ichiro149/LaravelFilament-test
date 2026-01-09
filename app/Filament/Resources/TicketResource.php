@@ -24,14 +24,28 @@ class TicketResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    /**
+     * Optimize queries with eager loading
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['user', 'assignedTo'])
+            ->withCount('messages');
+    }
+
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::where('status', 'open')->count();
+        return cache()->remember(
+            'filament_open_tickets_count',
+            now()->addMinutes(5),
+            fn () => static::getModel()::where('status', 'open')->count()
+        ) ?: null;
     }
 
     public static function getNavigationBadgeColor(): ?string
     {
-        $count = static::getModel()::where('status', 'open')->count();
+        $count = cache()->get('filament_open_tickets_count', 0);
 
         return $count > 5 ? 'danger' : 'warning';
     }

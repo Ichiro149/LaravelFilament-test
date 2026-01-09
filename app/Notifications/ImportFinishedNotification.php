@@ -3,12 +3,23 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ImportFinishedNotification extends Notification
+class ImportFinishedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * Number of times to retry the notification.
+     */
+    public int $tries = 3;
+
+    /**
+     * Backoff times in seconds between retries.
+     */
+    public array $backoff = [60, 300, 600];
 
     protected int $importId;
 

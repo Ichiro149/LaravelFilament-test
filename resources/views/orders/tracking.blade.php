@@ -205,12 +205,16 @@
                     </div>
                     <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px;">{{ __('order.invoice_description') }}</p>
                     <div style="display: flex; flex-direction: column; gap: 8px;">
-                        <a href="{{ route('invoice.download.number', $order->order_number) }}" class="btn-action green">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                            </svg>
-                            {{ __('invoice.download') }}
-                        </a>
+                        <form action="{{ route('invoice.download.number', $order->order_number) }}" method="POST" style="display: flex; flex-direction: column; gap: 8px;">
+                            @csrf
+                            <input type="hidden" name="email" value="{{ $order->customer_email }}">
+                            <button type="submit" class="btn-action green">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                </svg>
+                                {{ __('invoice.download') }}
+                            </button>
+                        </form>
                     </div>
                 </div>
 
