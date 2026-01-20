@@ -11,6 +11,7 @@ return [
     'subscriptions' => 'Abonēšana',
 
     // Navigation
+    'nav_account' => 'Konts',
     'nav_language' => 'Valoda',
     'nav_notifications' => 'Paziņojumi',
     'nav_privacy' => 'Privātums',
@@ -24,6 +25,21 @@ return [
     'nav_followed_companies' => 'Sekotie uzņēmumi',
     'nav_newsletter' => 'Jaunumi',
     'nav_analytics' => 'Analītikas panelis',
+
+    // Account section
+    'account_title' => 'Konts',
+    'account_description' => 'Pārvaldiet sava konta informāciju',
+    'username' => 'Lietotājvārds',
+    'username_placeholder' => 'jūsu_lietotājvārds',
+    'username_hint' => 'Tikai burti, cipari un pasvītras. 3-30 rakstzīmes.',
+    'username_invalid_format' => 'Lietotājvārds var saturēt tikai burtus, ciparus un pasvītras',
+    'username_taken' => 'Šis lietotājvārds jau ir aizņemts',
+    'email' => 'E-pasts',
+    'email_hint' => 'Lai mainītu e-pastu, sazinieties ar atbalstu',
+    'verified' => 'Apstiprināts',
+    'member_since' => 'Dalībnieks kopš',
+    'account_updated' => 'Konts veiksmīgi atjaunināts',
+    'save_changes' => 'Saglabāt izmaiņas',
 
     // Language section
     'language' => 'Valoda',

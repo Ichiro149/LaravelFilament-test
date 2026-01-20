@@ -160,7 +160,8 @@ class OrderResource extends Resource
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('customer_email')
-                    ->searchable(),
+                    ->searchable()
+                    ->formatStateUsing(fn (?string $state) => mask_email($state)),
 
                 Tables\Columns\TextColumn::make('total')
                     ->money('usd')

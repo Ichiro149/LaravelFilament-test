@@ -212,6 +212,11 @@
     min-height: 400px;
 }
 
+/* Hide mobile panel header on desktop */
+.mobile-panel-header {
+    display: none;
+}
+
 .settings-panel {
     display: none;
     animation: panelFadeIn 0.3s ease;
@@ -224,6 +229,190 @@
 @keyframes panelFadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* Panel Header */
+.settings-panel-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.settings-panel-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: var(--accent-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.settings-panel-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.settings-panel-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 4px;
+}
+
+.settings-panel-description {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Settings Form */
+.settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.settings-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.settings-form-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.settings-form-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.settings-form-input-prefix {
+    position: absolute;
+    left: 16px;
+    color: var(--text-muted);
+    font-size: 0.938rem;
+    font-weight: 500;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.settings-form-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.938rem;
+    font-family: inherit;
+    transition: var(--transition-base);
+}
+
+.settings-form-input.with-prefix {
+    padding-left: 36px;
+}
+
+.settings-form-input:hover {
+    border-color: var(--border-hover);
+}
+
+.settings-form-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.settings-form-input::placeholder {
+    color: var(--text-muted);
+}
+
+.settings-form-input.is-invalid {
+    border-color: #ef4444;
+}
+
+.settings-form-input.is-invalid:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.settings-form-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.settings-form-error {
+    font-size: 0.8125rem;
+    color: #f87171;
+    margin: 0;
+}
+
+.settings-form-static {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.938rem;
+}
+
+.settings-form-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    background: var(--success-soft);
+    border: 1px solid var(--success-border);
+    border-radius: var(--radius-full);
+    color: #4ade80;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.settings-form-actions {
+    margin-top: 8px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.settings-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: var(--transition-base);
+    border: none;
+}
+
+.settings-btn-primary {
+    background: var(--accent);
+    color: #000;
+}
+
+.settings-btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.settings-btn-primary:active {
+    transform: translateY(0);
 }
 
 .settings-card {

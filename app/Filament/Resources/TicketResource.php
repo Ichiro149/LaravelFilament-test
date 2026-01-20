@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class TicketResource extends Resource
 {
@@ -235,10 +236,17 @@ class TicketResource extends Resource
                     ->color('success'),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn () => Auth::user()?->role === 'super_admin')
+                    ->requiresConfirmation()
+                    ->modalHeading('Delete Ticket')
+                    ->modalDescription('Are you sure you want to delete this ticket? All messages and attachments will be permanently deleted.')
+                    ->modalSubmitActionLabel('Yes, delete ticket'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(fn () => Auth::user()?->role === 'super_admin'),
                 ]),
             ]);
     }

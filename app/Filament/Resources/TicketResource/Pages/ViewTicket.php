@@ -6,6 +6,7 @@ use App\Filament\Resources\TicketResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Support\Facades\Auth;
 
 class ViewTicket extends ViewRecord
 {
@@ -48,6 +49,12 @@ class ViewTicket extends ViewRecord
                         ->success()
                         ->send();
                 }),
+
+            Actions\DeleteAction::make()
+                ->visible(fn () => Auth::user()?->role === 'super_admin')
+                ->modalHeading('Delete Ticket')
+                ->modalDescription('Are you sure you want to delete this ticket? All messages and attachments will be permanently deleted.')
+                ->successRedirectUrl(TicketResource::getUrl('index')),
         ];
     }
 }

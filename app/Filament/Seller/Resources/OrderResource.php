@@ -72,7 +72,8 @@ class OrderResource extends Resource
                             ->disabled(),
 
                         Forms\Components\TextInput::make('customer_email')
-                            ->disabled(),
+                            ->disabled()
+                            ->formatStateUsing(fn (?string $state) => mask_email($state)),
 
                         Forms\Components\Textarea::make('shipping_address')
                             ->disabled()

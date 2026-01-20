@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Panel titles mapping
     const panelTitles = {
+        'account': '{{ __("settings.nav_account") }}',
         'language': '{{ __("settings.nav_language") }}',
         'appearance': '{{ __("settings.nav_appearance") }}',
         'notifications': '{{ __("settings.nav_notifications") }}',
@@ -93,6 +94,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (item) {
             openPanel(target, false);
         }
+    } else {
+        // Default to account panel
+        openPanel('account', false);
     }
     
     // Handle resize - close mobile panel if switching to desktop

@@ -11,6 +11,7 @@ return [
     'subscriptions' => 'Subscriptions',
 
     // Navigation
+    'nav_account' => 'Account',
     'nav_language' => 'Language',
     'nav_notifications' => 'Notifications',
     'nav_privacy' => 'Privacy',
@@ -24,6 +25,21 @@ return [
     'nav_followed_companies' => 'Followed Companies',
     'nav_newsletter' => 'Newsletter',
     'nav_analytics' => 'Analytics Dashboard',
+
+    // Account section
+    'account_title' => 'Account',
+    'account_description' => 'Manage your account information',
+    'username' => 'Username',
+    'username_placeholder' => 'your_username',
+    'username_hint' => 'Only letters, numbers and underscores. 3-30 characters.',
+    'username_invalid_format' => 'Username can only contain letters, numbers and underscores',
+    'username_taken' => 'This username is already taken',
+    'email' => 'Email',
+    'email_hint' => 'Contact support to change your email address',
+    'verified' => 'Verified',
+    'member_since' => 'Member Since',
+    'account_updated' => 'Account updated successfully',
+    'save_changes' => 'Save Changes',
 
     // Language section
     'language' => 'Language',

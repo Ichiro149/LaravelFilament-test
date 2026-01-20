@@ -15,3 +15,47 @@ if (! function_exists('activity_log')) {
         ]);
     }
 }
+
+if (! function_exists('mask_email')) {
+    /**
+     * Mask email for privacy: show first 2 chars + ••• + @domain
+     */
+    function mask_email(?string $email): string
+    {
+        if (empty($email)) {
+            return '••••@••••';
+        }
+
+        $parts = explode('@', $email);
+        if (count($parts) === 2) {
+            $local = $parts[0];
+            $domain = $parts[1];
+            $masked = substr($local, 0, 2).str_repeat('•', max(strlen($local) - 2, 3));
+
+            return $masked.'@'.$domain;
+        }
+
+        return '••••@••••';
+    }
+}
+
+if (! function_exists('mask_phone')) {
+    /**
+     * Mask phone for privacy: show last 4 digits
+     */
+    function mask_phone(?string $phone): string
+    {
+        if (empty($phone)) {
+            return '••••••••••';
+        }
+
+        $digits = preg_replace('/[^0-9]/', '', $phone);
+        $length = strlen($digits);
+
+        if ($length <= 4) {
+            return $phone;
+        }
+
+        return str_repeat('•', $length - 4).substr($digits, -4);
+    }
+}

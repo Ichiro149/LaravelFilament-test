@@ -11,6 +11,7 @@ return [
     'subscriptions' => 'Подписки',
 
     // Navigation
+    'nav_account' => 'Аккаунт',
     'nav_language' => 'Язык',
     'nav_notifications' => 'Уведомления',
     'nav_privacy' => 'Конфиденциальность',
@@ -24,6 +25,21 @@ return [
     'nav_followed_companies' => 'Подписки на компании',
     'nav_newsletter' => 'Рассылка',
     'nav_analytics' => 'Аналитика',
+
+    // Account section
+    'account_title' => 'Аккаунт',
+    'account_description' => 'Управляйте информацией вашего аккаунта',
+    'username' => 'Имя пользователя',
+    'username_placeholder' => 'ваш_никнейм',
+    'username_hint' => 'Только буквы, цифры и подчёркивания. 3-30 символов.',
+    'username_invalid_format' => 'Имя пользователя может содержать только буквы, цифры и подчёркивания',
+    'username_taken' => 'Это имя пользователя уже занято',
+    'email' => 'Email',
+    'email_hint' => 'Для смены email свяжитесь с поддержкой',
+    'verified' => 'Подтверждён',
+    'member_since' => 'Дата регистрации',
+    'account_updated' => 'Аккаунт успешно обновлён',
+    'save_changes' => 'Сохранить изменения',
 
     // Language section
     'language' => 'Язык',

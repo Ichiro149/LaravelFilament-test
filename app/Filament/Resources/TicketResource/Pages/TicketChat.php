@@ -123,4 +123,34 @@ class TicketChat extends Page
         unset($this->attachments[$index]);
         $this->attachments = array_values($this->attachments);
     }
+
+    public function deleteTicket()
+    {
+        // Only super_admin can delete
+        if (Auth::user()?->role !== 'super_admin') {
+            \Filament\Notifications\Notification::make()
+                ->danger()
+                ->title('Access denied')
+                ->body('Only super admins can delete tickets.')
+                ->send();
+
+            return;
+        }
+
+        // Delete all attachments
+        foreach ($this->record->messages as $message) {
+            foreach ($message->attachments as $attachment) {
+                \Storage::disk('public')->delete($attachment->file_path);
+            }
+        }
+
+        $this->record->delete();
+
+        \Filament\Notifications\Notification::make()
+            ->success()
+            ->title('Ticket deleted')
+            ->send();
+
+        return redirect(TicketResource::getUrl('index'));
+    }
 }

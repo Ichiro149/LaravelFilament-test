@@ -490,7 +490,7 @@
                         </span>
                     </div>
                     <div class="ticket-customer">
-                        Customer: <strong>{{ $this->record->customer->name }}</strong> ({{ $this->record->customer->email }})
+                        Customer: <strong>{{ $this->record->customer->name }}</strong> ({{ mask_email($this->record->customer->email) }})
                     </div>
                 </div>
                 

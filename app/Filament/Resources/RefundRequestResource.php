@@ -278,7 +278,8 @@ class RefundRequestResource extends Resource
                                     ->label('Customer'),
 
                                 Infolists\Components\TextEntry::make('user.email')
-                                    ->label('Email'),
+                                    ->label('Email')
+                                    ->formatStateUsing(fn (?string $state) => mask_email($state)),
                             ]),
 
                         Infolists\Components\Grid::make(4)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\GitHubAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\BannedController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartCouponController;
 use App\Http\Controllers\CheckoutController;
@@ -22,6 +23,9 @@ use App\Http\Controllers\TwoFactorChallengeController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
+
+// Ban page (must be outside middleware)
+Route::get('/banned', [BannedController::class, 'show'])->name('banned');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search.global');
 
@@ -253,6 +257,7 @@ Route::middleware(['auth'])->prefix('reviews')->name('reviews.')->group(function
 Route::middleware(['auth'])->prefix('settings')->name('settings.')->group(function () {
     Route::get('/', [App\Http\Controllers\SettingsController::class, 'index'])->name('index');
     Route::post('/locale', [App\Http\Controllers\SettingsController::class, 'updateLocale'])->name('locale');
+    Route::put('/account', [App\Http\Controllers\SettingsController::class, 'updateAccount'])->name('update-account');
 
     // Password
     Route::post('/password', [App\Http\Controllers\SettingsController::class, 'updatePassword'])->name('password.update');

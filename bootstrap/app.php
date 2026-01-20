@@ -13,15 +13,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Add SetLocale to web middleware group
+        // Add middleware to web middleware group
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
+            \App\Http\Middleware\CheckBan::class,
         ]);
 
         // Register middleware aliases
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
             'seller' => \App\Http\Middleware\EnsureUserIsSeller::class,
+            'check.ban' => \App\Http\Middleware\CheckBan::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

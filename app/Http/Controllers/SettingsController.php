@@ -62,6 +62,36 @@ class SettingsController extends Controller
     }
 
     /**
+     * Update user account (username).
+     */
+    public function updateAccount(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'username' => [
+                'required',
+                'string',
+                'min:3',
+                'max:30',
+                'regex:/^[a-zA-Z0-9_]+$/',
+                'unique:users,username,'.$user->id,
+            ],
+        ], [
+            'username.regex' => __('settings.username_invalid_format'),
+            'username.unique' => __('settings.username_taken'),
+        ]);
+
+        $user->update([
+            'username' => $request->username,
+        ]);
+
+        activity_log('username_changed');
+
+        return back()->with('success', __('settings.account_updated'));
+    }
+
+    /**
      * Update user password.
      */
     public function updatePassword(Request $request): JsonResponse

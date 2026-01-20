@@ -339,6 +339,51 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     }
 
     /**
+     * Баны пользователя
+     */
+    public function bans(): HasMany
+    {
+        return $this->hasMany(Ban::class);
+    }
+
+    /**
+     * Активные баны пользователя
+     */
+    public function activeBans(): HasMany
+    {
+        return $this->hasMany(Ban::class)
+            ->where('is_active', true)
+            ->where(function ($q) {
+                $q->whereNull('expires_at')
+                    ->orWhere('expires_at', '>', now());
+            });
+    }
+
+    /**
+     * Fingerprints пользователя
+     */
+    public function fingerprints(): HasMany
+    {
+        return $this->hasMany(UserFingerprint::class);
+    }
+
+    /**
+     * Проверить, забанен ли пользователь
+     */
+    public function isBanned(): bool
+    {
+        return Ban::checkAccountBan($this->id) !== null;
+    }
+
+    /**
+     * Получить активный бан пользователя
+     */
+    public function getActiveBan(): ?Ban
+    {
+        return Ban::checkAccountBan($this->id);
+    }
+
+    /**
      * Получить URL аватара пользователя или дефолтную заглушку
      */
     public function getAvatarUrlAttribute(): string

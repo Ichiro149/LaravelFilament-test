@@ -42,7 +42,14 @@
                     <div class="settings-nav-group">
                         <span class="settings-nav-group-title">{{ __('settings.general') }}</span>
                         
-                        <button type="button" class="settings-nav-item active" data-panel="language">
+                        <button type="button" class="settings-nav-item active" data-panel="account">
+                            <svg class="settings-nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                            {{ __('settings.nav_account') }}
+                        </button>
+                        
+                        <button type="button" class="settings-nav-item" data-panel="language">
                             <svg class="settings-nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
                             </svg>
@@ -160,9 +167,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
                     </button>
-                    <span class="mobile-panel-title" id="mobile-panel-title">{{ __('settings.nav_language') }}</span>
+                    <span class="mobile-panel-title" id="mobile-panel-title">{{ __('settings.nav_account') }}</span>
                 </div>
                 
+                @include('settings.panels.account')
                 @include('settings.panels.language')
                 @include('settings.panels.appearance')
                 @include('settings.panels.notifications')

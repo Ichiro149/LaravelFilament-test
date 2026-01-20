@@ -1,5 +1,5 @@
 <!-- Language Panel -->
-<div class="settings-panel active" id="panel-language">
+<div class="settings-panel" id="panel-language" data-panel="language">
     <div class="settings-card">
         <div class="settings-section">
             <div class="settings-section-header">
