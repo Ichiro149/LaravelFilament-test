@@ -13,6 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Trust Cloudflare proxies
+        $middleware->trustProxies(at: '*');
+
         // Add middleware to web middleware group
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
