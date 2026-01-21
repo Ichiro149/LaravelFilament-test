@@ -194,7 +194,7 @@
         </div>
         
         <div class="banned-footer">
-            <p>{{ __('If you believe this is a mistake, please contact') }} <a href="mailto:support@example.com">support@example.com</a></p>
+            <p>{{ __('If you believe this is a mistake, please contact') }} <a href="mailto:eshop.notificationss@gmail.com">eshop.notificationss@gmail.com</a></p>
         </div>
         
         @auth
